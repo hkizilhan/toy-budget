@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Platform } from 'react-native'
 
 
-interface Profile {
+export interface Profile {
     id: number,
     date: number,
     balance: number,
@@ -14,6 +14,7 @@ interface Profile {
 
 type State = {
     appMode: 'PARENT' | 'KID' | ''
+    parentPassword: string
     profiles: Profile[]
     currentProfileName: string
 
@@ -22,6 +23,7 @@ type State = {
 
 type Action = {
     updateAppMode: (appMode: State['appMode']) => void
+    updateParentPassword: (password: string) => void
     updateCurrentProfileName: (name: string) => void
 
     addProfile: (profile: Profile) => void,
@@ -40,6 +42,9 @@ export const useSettingsStore = create<State & Action>()(
         (set, get) => ({
             appMode: '',
             updateAppMode: (appMode) => set(() => ({ appMode: appMode })),
+
+            parentPassword: '',
+            updateParentPassword: (password) => set(() => ({ parentPassword: password })),
 
             profiles: [],
             currentProfileName: '',
